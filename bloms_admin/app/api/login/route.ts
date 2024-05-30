@@ -4,36 +4,43 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
-const JWT_SECRET = process.env.JWT_SECRET!;
+
+const JWT_SECRET = process.env.JWT_SECRET || "Kwe2augd";  // Use environment variable for production
 
 export async function POST(request: NextRequest) {
-  const { username, password } = await request.json();
-
   try {
+    const { username, password } = await request.json();
+    console.log('Received request:', { username, password });
+
     const user = await prisma.user.findUnique({
       where: { username },
     });
+    console.log('User query result:', user);
 
     if (!user) {
+      console.log('User not found');
       return NextResponse.json({ error: 'Invalid username or password' }, { status: 401 });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log('Password valid:', isPasswordValid);
 
     if (!isPasswordValid) {
+      console.log('Invalid password');
       return NextResponse.json({ error: 'Invalid username or password' }, { status: 401 });
     }
 
-    // Generate JWT token
     const token = jwt.sign(
       { userId: user.id, username: user.username, permissionLevel: user.permissionLevel },
       JWT_SECRET,
       { expiresIn: '1h' }
     );
 
-    // Return the necessary data
+    console.log('Generated token:', token);
+
     return NextResponse.json({ token, userId: user.id, username: user.username, permissionLevel: user.permissionLevel });
   } catch (error) {
+    console.error('Error processing request:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
