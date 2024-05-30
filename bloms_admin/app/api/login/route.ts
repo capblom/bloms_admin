@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ token, userId: user.id, username: user.username, permissionLevel: user.permissionLevel });
   } catch (error) {
-    console.error('Error processing request:', error);
+    console.error('Error processing request:', error.stack || error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
