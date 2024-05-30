@@ -1,5 +1,6 @@
 {
   "/customers/newOrder/page": "app/customers/newOrder/page.js",
+  "/customers/catalogueRequest/page": "app/customers/catalogueRequest/page.js",
   "/api/login/route": "app/api/login/route.js",
   "/api/fetchUserNames/route": "app/api/fetchUserNames/route.js"
 }
