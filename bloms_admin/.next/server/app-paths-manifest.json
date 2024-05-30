@@ -1,5 +1,5 @@
 {
-  "/api/login/route": "app/api/login/route.js",
   "/customers/newOrder/page": "app/customers/newOrder/page.js",
-  "/api/fetchUserNames/route": "app/api/fetchUserNames/route.js"
+  "/api/fetchUserNames/route": "app/api/fetchUserNames/route.js",
+  "/api/login/route": "app/api/login/route.js"
 }
