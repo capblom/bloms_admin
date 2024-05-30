@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
 
-const JWT_SECRET = process.env.JWT_SECRET || "Kwe2augd";  // Use environment variable for production
+const JWT_SECRET = "Kwe2augd";
 
 export async function POST(request: NextRequest) {
   try {
