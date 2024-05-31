@@ -5,7 +5,8 @@ import jwt from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
 
-const JWT_SECRET = "Kwe2augd";
+// Default to a hardcoded value if process.env.JWT_SECRET is not set
+const JWT_SECRET = process.env.JWT_SECRET || "Kwe2augd";
 
 export async function POST(request: NextRequest) {
   try {
@@ -40,7 +41,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ token, userId: user.id, username: user.username, permissionLevel: user.permissionLevel });
   } catch (error) {
-    console.error('Error processing request:', (error as any).stack || error);
+    console.error('Error processing request:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
