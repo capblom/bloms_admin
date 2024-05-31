@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 const prisma = new PrismaClient();
 
 // Default to a hardcoded value if process.env.JWT_SECRET is not set
-const JWT_SECRET = process.env.JWT_SECRET || "Kwe2augd";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export async function POST(request: NextRequest) {
   try {
